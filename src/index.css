@@ -1,0 +1,2236 @@
+/* ==========================================================================
+   Chinese Recipe App — Global Stylesheet (mobile-first)
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   CSS Custom Properties
+   -------------------------------------------------------------------------- */
+:root {
+  /* ----- Brand palette ----- */
+  --color-primary:         #FF6B35;
+  --color-primary-light:   #FF8C42;
+  --color-primary-dark:    #E55A2B;
+  --color-primary-bg:      rgba(255, 107, 53, 0.08);
+  --color-primary-border:  rgba(255, 107, 53, 0.25);
+
+  /* ----- Backgrounds ----- */
+  --bg-body:       #FFF8F0;
+  --bg-surface:    #FFF5EC;
+  --bg-card:       #FFFFFF;
+  --bg-overlay:    rgba(0, 0, 0, 0.45);
+  --bg-toast:      rgba(0, 0, 0, 0.82);
+
+  /* ----- Text ----- */
+  --text-primary:    #333333;
+  --text-secondary:  #666666;
+  --text-hint:       #999999;
+  --text-inverse:    #FFFFFF;
+  --text-link:       #FF6B35;
+
+  /* ----- Semantic ----- */
+  --color-success:      #2ECC71;
+  --color-success-bg:   rgba(46, 204, 113, 0.1);
+  --color-warning:      #F39C12;
+  --color-warning-bg:   rgba(243, 156, 18, 0.1);
+  --color-error:        #E74C3C;
+  --color-error-bg:     rgba(231, 76, 60, 0.1);
+  --color-info:         #3498DB;
+  --color-info-bg:      rgba(52, 152, 219, 0.08);
+
+  /* ----- Quick-entry accents ----- */
+  --color-blue:    #4A90D9;
+  --color-blue-bg: rgba(74, 144, 217, 0.1);
+  --color-pink:    #E879A6;
+  --color-pink-bg: rgba(232, 121, 166, 0.1);
+  --color-teal:    #1ABC9C;
+  --color-teal-bg: rgba(26, 188, 156, 0.1);
+
+  /* ----- Shadows ----- */
+  --shadow-xs:  0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-sm:  0 2px 6px rgba(0, 0, 0, 0.06);
+  --shadow-md:  0 4px 16px rgba(0, 0, 0, 0.1);
+  --shadow-lg:  0 10px 32px rgba(0, 0, 0, 0.12);
+  --shadow-xl:  0 20px 48px rgba(0, 0, 0, 0.16);
+  --shadow-tab: 0 -2px 10px rgba(0, 0, 0, 0.08);
+
+  /* ----- Radii ----- */
+  --radius-xs:   4px;
+  --radius-sm:   8px;
+  --radius-md:   12px;
+  --radius-lg:   16px;
+  --radius-xl:   20px;
+  --radius-full: 9999px;
+
+  /* ----- Spacing ----- */
+  --space-xs:  4px;
+  --space-sm:  8px;
+  --space-md:  12px;
+  --space-lg:  16px;
+  --space-xl:  20px;
+  --space-2xl: 24px;
+  --space-3xl: 32px;
+
+  /* ----- Typography ----- */
+  --font-sans:  'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei',
+                system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-mono:  'SF Mono', 'Fira Code', 'Consolas', monospace;
+
+  /* ----- Sizing ----- */
+  --touch-target:      44px;
+  --touch-target-lg:   48px;
+  --max-width:         1200px;
+  --tab-bar-height:    64px;
+  --bottom-safe:       env(safe-area-inset-bottom, 0px);
+
+  /* ----- Transitions ----- */
+  --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
+  --ease-out:      cubic-bezier(0, 0, 0.2, 1);
+  --ease-in-out:   cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-fast: 150ms var(--ease-out);
+  --transition-base: 250ms var(--ease-out);
+  --transition-slow: 400ms var(--ease-out-expo);
+}
+
+/* --------------------------------------------------------------------------
+   Reset & Base
+   -------------------------------------------------------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--text-primary);
+  background: var(--bg-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overscroll-behavior-y: contain;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+  border: none;
+  outline: none;
+  background: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+/* --------------------------------------------------------------------------
+   #root — app shell
+   -------------------------------------------------------------------------- */
+#root {
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Content area gets border lines at 481px+ */
+@media (min-width: 481px) {
+  #root {
+    border-left:  1px solid rgba(0, 0, 0, 0.06);
+    border-right: 1px solid rgba(0, 0, 0, 0.06);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Utility: screen reader only
+   -------------------------------------------------------------------------- */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ==========================================================================
+   1. TAB BAR — fixed bottom navigation
+   ========================================================================== */
+.tab-bar {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: var(--max-width);
+  height: calc(var(--tab-bar-height) + var(--bottom-safe));
+  padding-bottom: var(--bottom-safe);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  background: var(--bg-card);
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+  box-shadow: var(--shadow-tab);
+  z-index: 1000;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.92);
+}
+
+.tab-bar__btn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  min-height: var(--touch-target);
+  padding: var(--space-xs) 0;
+  color: var(--text-hint);
+  font-size: 10px;
+  font-weight: 500;
+  transition: color var(--transition-fast);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
+.tab-bar__btn .tab-emoji {
+  font-size: 22px;
+  line-height: 1;
+  transition: transform var(--transition-fast);
+}
+
+.tab-bar__btn--active {
+  color: var(--color-primary);
+}
+
+.tab-bar__btn--active .tab-emoji {
+  transform: scale(1.15);
+}
+
+.tab-bar__btn:active {
+  opacity: 0.7;
+}
+
+/* ==========================================================================
+   2. RECIPE CARD
+   ========================================================================== */
+.recipe-card {
+  background: var(--bg-card);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.recipe-card:hover {
+  transform: scale(1.02);
+  box-shadow: var(--shadow-md);
+}
+
+.recipe-card:active {
+  transform: scale(0.98);
+}
+
+.recipe-card__cover {
+  position: relative;
+  width: 100%;
+  padding-top: 75%; /* 4:3 */
+  overflow: hidden;
+  background: var(--bg-surface);
+}
+
+.recipe-card__cover img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-slow);
+}
+
+.recipe-card:hover .recipe-card__cover img {
+  transform: scale(1.06);
+}
+
+.recipe-card__cover .recipe-card__badge {
+  position: absolute;
+  top: var(--space-sm);
+  left: var(--space-sm);
+}
+
+.recipe-card__cover .recipe-card__time {
+  position: absolute;
+  bottom: var(--space-sm);
+  right: var(--space-sm);
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  padding: 2px 8px;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  font-size: 11px;
+  border-radius: var(--radius-full);
+}
+
+.recipe-card__info {
+  padding: var(--space-md) var(--space-sm) var(--space-sm);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.recipe-card__title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.35;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.recipe-card__meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-size: 11px;
+  color: var(--text-hint);
+}
+
+.recipe-card__meta span {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+/* Card special variant: highlight / featured */
+.recipe-card--featured {
+  position: relative;
+}
+
+.recipe-card--featured::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-md);
+  border: 2px solid var(--color-primary-light);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* ----- Recipe card grid ----- */
+.recipe-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-md);
+  padding: var(--space-lg);
+}
+
+@media (min-width: 768px) {
+  .recipe-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg);
+    padding: var(--space-xl);
+  }
+}
+
+@media (min-width: 1024px) {
+  .recipe-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-xl);
+    padding: var(--space-2xl);
+  }
+}
+
+/* ==========================================================================
+   3. CATEGORY TABS — horizontal scroll pills
+   ========================================================================== */
+.category-tabs {
+  display: flex;
+  gap: var(--space-sm);
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  -webkit-overflow-scrolling: touch;
+  padding: var(--space-md) var(--space-lg);
+  scrollbar-width: none;
+}
+
+.category-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.category-tabs__pill {
+  flex-shrink: 0;
+  scroll-snap-align: start;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  min-height: var(--touch-target);
+  padding: 0 var(--space-lg);
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: var(--radius-full);
+  background: var(--bg-card);
+  color: var(--text-secondary);
+  box-shadow: var(--shadow-xs);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  border: 1.5px solid transparent;
+}
+
+.category-tabs__pill:active {
+  transform: scale(0.96);
+}
+
+.category-tabs__pill--active {
+  background: var(--color-primary);
+  color: var(--text-inverse);
+  border-color: var(--color-primary-dark);
+  box-shadow: 0 4px 12px rgba(255, 107, 53, 0.35);
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   4. FILTER PANEL
+   ========================================================================== */
+.filter-panel {
+  background: var(--bg-card);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  transition: max-height var(--transition-slow), opacity var(--transition-base);
+  max-height: 0;
+  opacity: 0;
+}
+
+.filter-panel--open {
+  max-height: 600px;
+  opacity: 1;
+}
+
+.filter-panel__inner {
+  padding: var(--space-lg);
+}
+
+.filter-panel__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  gap: var(--space-sm);
+}
+
+.filter-panel__option {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  min-height: 36px;
+  padding: var(--space-xs) var(--space-sm);
+  font-size: 12px;
+  font-weight: 500;
+  border-radius: var(--radius-sm);
+  background: var(--bg-surface);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  border: 1.5px solid transparent;
+  user-select: none;
+}
+
+.filter-panel__option--selected {
+  background: var(--color-primary-bg);
+  color: var(--color-primary);
+  border-color: var(--color-primary-border);
+  font-weight: 600;
+}
+
+.filter-panel__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  margin-top: var(--space-md);
+  padding-top: var(--space-md);
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.filter-panel__tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  font-size: 11px;
+  font-weight: 500;
+  border-radius: var(--radius-full);
+  background: var(--color-primary-bg);
+  color: var(--color-primary);
+}
+
+.filter-panel__tag button {
+  font-size: 14px;
+  line-height: 1;
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+.filter-panel__tag button:hover {
+  opacity: 1;
+}
+
+/* ==========================================================================
+   5. DETAIL PAGE
+   ========================================================================== */
+.detail-page {
+  position: relative;
+  min-height: 100dvh;
+  padding-bottom: calc(var(--tab-bar-height) + var(--bottom-safe) + var(--space-xl));
+  background: var(--bg-body);
+}
+
+/* ----- Back button ----- */
+.detail-page__back {
+  position: absolute;
+  top: var(--space-lg);
+  left: var(--space-lg);
+  z-index: 10;
+  width: var(--touch-target);
+  height: var(--touch-target);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: var(--shadow-md);
+  font-size: 18px;
+  cursor: pointer;
+  transition: transform var(--transition-fast);
+}
+
+.detail-page__back:active {
+  transform: scale(0.9);
+}
+
+/* ----- Hero image ----- */
+.detail-page__hero {
+  position: relative;
+  width: 100%;
+  padding-top: 75%;
+  overflow: hidden;
+  background: var(--bg-surface);
+}
+
+.detail-page__hero img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.detail-page__hero::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: linear-gradient(to top, var(--bg-body), transparent);
+  pointer-events: none;
+}
+
+/* ----- Title area ----- */
+.detail-page__header {
+  padding: 0 var(--space-lg);
+  margin-top: -20px;
+  position: relative;
+  z-index: 2;
+}
+
+.detail-page__title {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.3;
+}
+
+.detail-page__subtitle {
+  font-size: 13px;
+  color: var(--text-hint);
+  margin-top: 4px;
+}
+
+/* ----- Info icons row ----- */
+.detail-page__info-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-lg);
+  padding: var(--space-lg);
+  margin: var(--space-md) var(--space-lg);
+  background: var(--bg-card);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-xs);
+}
+
+.detail-page__info-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  font-size: 11px;
+  color: var(--text-hint);
+}
+
+.detail-page__info-item .info-emoji {
+  font-size: 20px;
+}
+
+.detail-page__info-item .info-value {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+/* ----- Servings adjuster ----- */
+.serving-selector {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-md);
+  min-height: var(--touch-target);
+  padding: 0 var(--space-sm);
+  background: var(--bg-card);
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-xs);
+}
+
+.serving-selector__btn {
+  width: var(--touch-target);
+  height: var(--touch-target);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--color-primary);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  user-select: none;
+}
+
+.serving-selector__btn:hover {
+  background: var(--color-primary-bg);
+}
+
+.serving-selector__btn:active {
+  transform: scale(0.9);
+  background: var(--color-primary-bg);
+}
+
+.serving-selector__btn--disabled {
+  color: var(--text-hint);
+  pointer-events: none;
+  opacity: 0.4;
+}
+
+.serving-selector__value {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-primary);
+  min-width: 60px;
+  text-align: center;
+}
+
+/* ----- Ingredient list ----- */
+.ingredient-list {
+  padding: var(--space-lg);
+  margin: 0 var(--space-lg) var(--space-md);
+  background: var(--bg-card);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-xs);
+}
+
+.ingredient-list__title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: var(--space-md);
+  padding-bottom: var(--space-sm);
+  border-bottom: 2px solid var(--color-primary-light);
+  display: inline-block;
+}
+
+.ingredient-list__item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  font-size: 14px;
+  color: var(--text-secondary);
+  border-bottom: 1px dashed rgba(0, 0, 0, 0.06);
+}
+
+.ingredient-list__item:last-child {
+  border-bottom: none;
+}
+
+.ingredient-list__item .ingredient-name {
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.ingredient-list__item .ingredient-amount {
+  font-size: 13px;
+  color: var(--text-hint);
+}
+
+/* ----- Step list ----- */
+.step-list {
+  padding: var(--space-lg);
+  margin: 0 var(--space-lg) var(--space-md);
+  background: var(--bg-card);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-xs);
+}
+
+.step-list__title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: var(--space-lg);
+}
+
+.step-list__item {
+  display: flex;
+  gap: var(--space-md);
+  padding-bottom: var(--space-lg);
+  position: relative;
+}
+
+.step-list__item:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  top: 32px;
+  left: 14px;
+  width: 2px;
+  height: calc(100% - 32px);
+  background: var(--bg-surface);
+}
+
+.step-list__number {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--color-primary);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  z-index: 1;
+}
+
+.step-list__content {
+  flex: 1;
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+/* ----- Tips box ----- */
+.tips-box {
+  margin: 0 var(--space-lg) var(--space-md);
+  padding: var(--space-lg);
+  background: var(--color-warning-bg);
+  border-radius: var(--radius-md);
+  border-left: 4px solid var(--color-warning);
+}
+
+.tips-box__title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-warning);
+  margin-bottom: var(--space-xs);
+}
+
+.tips-box__text {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* ----- Bottom action bar ----- */
+.action-bar {
+  position: fixed;
+  bottom: calc(var(--tab-bar-height) + var(--bottom-safe));
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: var(--max-width);
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-lg);
+  padding-bottom: calc(var(--space-sm) + var(--bottom-safe));
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: var(--shadow-tab);
+  z-index: 999;
+}
+
+.action-bar__btn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  min-height: var(--touch-target);
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--text-hint);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.action-bar__btn .action-emoji {
+  font-size: 20px;
+}
+
+.action-bar__btn--primary {
+  flex: 2;
+  flex-direction: row;
+  gap: var(--space-sm);
+  background: var(--color-primary);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: var(--radius-full);
+  box-shadow: 0 4px 14px rgba(255, 107, 53, 0.35);
+}
+
+.action-bar__btn:active {
+  transform: scale(0.95);
+}
+
+/* ==========================================================================
+   6. FRIDGE PAGE
+   ========================================================================== */
+.fridge-page {
+  padding: var(--space-lg);
+  padding-bottom: calc(var(--tab-bar-height) + var(--bottom-safe) + var(--space-xl));
+}
+
+@media (min-width: 1024px) {
+  .fridge-page {
+    display: grid;
+    grid-template-columns: 360px 1fr;
+    gap: var(--space-xl);
+    align-items: start;
+  }
+}
+
+/* ----- Input area ----- */
+.fridge-page__input-area {
+  background: var(--bg-card);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  padding: var(--space-lg);
+}
+
+.fridge-page__input-area h2 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: var(--space-md);
+}
+
+.fridge-page__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  margin-top: var(--space-md);
+}
+
+.fridge-page__tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 12px;
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: var(--radius-full);
+  background: var(--bg-surface);
+  color: var(--text-primary);
+}
+
+.fridge-page__tag button {
+  font-size: 14px;
+  cursor: pointer;
+  color: var(--text-hint);
+  transition: color var(--transition-fast);
+}
+
+.fridge-page__tag button:hover {
+  color: var(--color-error);
+}
+
+/* ----- Result cards ----- */
+.fridge-result-card {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-md);
+  background: var(--bg-card);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-xs);
+  margin-bottom: var(--space-sm);
+  cursor: pointer;
+  transition: transform var(--transition-fast);
+}
+
+.fridge-result-card:active {
+  transform: scale(0.98);
+}
+
+.fridge-result-card__thumb {
+  flex-shrink: 0;
+  width: 64px;
+  height: 64px;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  background: var(--bg-surface);
+}
+
+.fridge-result-card__thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.fridge-result-card__info {
+  flex: 1;
+  min-width: 0;
+}
+
+.fridge-result-card__title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.fridge-result-card__meta {
+  font-size: 11px;
+  color: var(--text-hint);
+  margin-top: 2px;
+}
+
+.fridge-result-card__match {
+  flex-shrink: 0;
+  min-width: 52px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 700;
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+}
+
+.fridge-result-card__match--high {
+  background: var(--color-success-bg);
+  color: var(--color-success);
+}
+
+.fridge-result-card__match--medium {
+  background: var(--color-warning-bg);
+  color: var(--color-warning);
+}
+
+.fridge-result-card__match--low {
+  background: var(--bg-surface);
+  color: var(--text-hint);
+}
+
+/* ==========================================================================
+   7. PROFILE PAGE
+   ========================================================================== */
+.profile-page {
+  padding-bottom: calc(var(--tab-bar-height) + var(--bottom-safe) + var(--space-xl));
+}
+
+/* ----- User card ----- */
+.profile__user-card {
+  margin: var(--space-lg);
+  padding: var(--space-2xl) var(--space-lg);
+  border-radius: var(--radius-lg);
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
+  color: #fff;
+  box-shadow: 0 8px 28px rgba(255, 107, 53, 0.35);
+}
+
+.profile__avatar {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  border: 3px solid rgba(255, 255, 255, 0.5);
+  overflow: hidden;
+  margin-bottom: var(--space-md);
+}
+
+.profile__avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.profile__name {
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.profile__bio {
+  font-size: 13px;
+  opacity: 0.8;
+  margin-top: 4px;
+}
+
+/* ----- Stats row ----- */
+.profile__stats {
+  display: flex;
+  margin: var(--space-lg);
+  padding: var(--space-lg);
+  background: var(--bg-card);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-xs);
+}
+
+.profile__stat {
+  flex: 1;
+  text-align: center;
+  position: relative;
+}
+
+.profile__stat:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  top: 20%;
+  right: 0;
+  width: 1px;
+  height: 60%;
+  background: rgba(0, 0, 0, 0.06);
+}
+
+.profile__stat-value {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+.profile__stat-label {
+  font-size: 11px;
+  color: var(--text-hint);
+  margin-top: 2px;
+}
+
+/* ----- Tab switcher (profile sub-tabs) ----- */
+.profile__tab-switcher {
+  display: flex;
+  margin: 0 var(--space-lg);
+  background: var(--bg-card);
+  border-radius: var(--radius-sm);
+  padding: 3px;
+  box-shadow: var(--shadow-xs);
+}
+
+.profile__tab {
+  flex: 1;
+  min-height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: var(--radius-xs);
+  color: var(--text-hint);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.profile__tab--active {
+  background: var(--color-primary);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(255, 107, 53, 0.3);
+}
+
+/* ----- Empty state (also used globally) ----- */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-3xl) var(--space-lg);
+  text-align: center;
+}
+
+.empty-state__emoji {
+  font-size: 64px;
+  margin-bottom: var(--space-lg);
+}
+
+.empty-state__title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: var(--space-xs);
+}
+
+.empty-state__text {
+  font-size: 13px;
+  color: var(--text-hint);
+  max-width: 260px;
+  line-height: 1.6;
+}
+
+/* ==========================================================================
+   8. CHALLENGE PAGE
+   ========================================================================== */
+.challenge-page {
+  padding: var(--space-lg);
+  padding-bottom: calc(var(--tab-bar-height) + var(--bottom-safe) + var(--space-xl));
+}
+
+/* ----- Stat cards ----- */
+.challenge-page__stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-md);
+  margin-bottom: var(--space-xl);
+}
+
+@media (min-width: 768px) {
+  .challenge-page__stats {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.challenge-stat-card {
+  padding: var(--space-lg);
+  background: var(--bg-card);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-xs);
+  text-align: center;
+}
+
+.challenge-stat-card__icon {
+  font-size: 28px;
+  margin-bottom: var(--space-xs);
+}
+
+.challenge-stat-card__value {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+.challenge-stat-card__label {
+  font-size: 11px;
+  color: var(--text-hint);
+}
+
+/* ----- Badge collection ----- */
+.badge-collection {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+  margin-bottom: var(--space-xl);
+}
+
+.badge-item {
+  width: 64px;
+  height: 64px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--bg-card);
+  box-shadow: var(--shadow-sm);
+  font-size: 24px;
+  transition: transform var(--transition-fast);
+}
+
+.badge-item:hover {
+  transform: scale(1.1);
+}
+
+.badge-item--locked {
+  filter: grayscale(1);
+  opacity: 0.4;
+}
+
+.badge-item__label {
+  font-size: 8px;
+  color: var(--text-hint);
+  margin-top: 2px;
+}
+
+/* ----- Challenge cards ----- */
+.challenge-card {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-lg);
+  background: var(--bg-card);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-xs);
+  margin-bottom: var(--space-md);
+  transition: transform var(--transition-fast);
+}
+
+.challenge-card:active {
+  transform: scale(0.98);
+}
+
+.challenge-card__icon {
+  flex-shrink: 0;
+  font-size: 32px;
+}
+
+.challenge-card__body {
+  flex: 1;
+  min-width: 0;
+}
+
+.challenge-card__title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.challenge-card__desc {
+  font-size: 12px;
+  color: var(--text-hint);
+  margin-top: 2px;
+}
+
+.challenge-card__progress {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-top: var(--space-sm);
+}
+
+.challenge-card__progress-bar {
+  flex: 1;
+  height: 6px;
+  background: var(--bg-surface);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.challenge-card__progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-primary-light));
+  border-radius: var(--radius-full);
+  transition: width var(--transition-slow);
+}
+
+.challenge-card__progress-text {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-primary);
+  min-width: 36px;
+  text-align: right;
+}
+
+/* ==========================================================================
+   9. SEARCH PAGE
+   ========================================================================== */
+.search-page {
+  padding: var(--space-lg);
+  padding-bottom: calc(var(--tab-bar-height) + var(--bottom-safe) + var(--space-xl));
+}
+
+/* ----- Search input ----- */
+.search-input {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-input__icon {
+  position: absolute;
+  left: var(--space-lg);
+  font-size: 18px;
+  color: var(--text-hint);
+  pointer-events: none;
+}
+
+.search-input__field {
+  width: 100%;
+  height: var(--touch-target-lg);
+  padding: 0 var(--space-lg) 0 42px;
+  font-size: 15px;
+  color: var(--text-primary);
+  background: var(--bg-card);
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow var(--transition-fast);
+}
+
+.search-input__field:focus {
+  box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.2), var(--shadow-md);
+}
+
+.search-input__field::placeholder {
+  color: var(--text-hint);
+}
+
+.search-input__clear {
+  position: absolute;
+  right: var(--space-sm);
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  color: var(--text-hint);
+  cursor: pointer;
+  border-radius: 50%;
+  transition: background var(--transition-fast);
+}
+
+.search-input__clear:hover {
+  background: var(--bg-surface);
+}
+
+/* ----- Hot search / tag cloud ----- */
+.tag-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  margin-top: var(--space-xl);
+}
+
+.tag-cloud__title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-primary);
+  width: 100%;
+  margin-bottom: var(--space-xs);
+}
+
+.tag-cloud__item {
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+  padding: 0 var(--space-lg);
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: var(--radius-full);
+  background: var(--bg-card);
+  color: var(--text-secondary);
+  box-shadow: var(--shadow-xs);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.tag-cloud__item--hot {
+  background: var(--color-primary-bg);
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+.tag-cloud__item:active {
+  transform: scale(0.96);
+}
+
+/* ==========================================================================
+   10. HOME PAGE
+   ========================================================================== */
+.home-page {
+  padding-bottom: calc(var(--tab-bar-height) + var(--bottom-safe) + var(--space-xl));
+}
+
+/* ----- Welcome banner ----- */
+.welcome-banner {
+  padding: var(--space-2xl) var(--space-lg) var(--space-lg);
+  background: linear-gradient(160deg, #FFF3E6 0%, var(--bg-body) 100%);
+}
+
+.welcome-banner__greeting {
+  font-size: 13px;
+  color: var(--text-hint);
+  margin-bottom: 2px;
+}
+
+.welcome-banner__title {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.welcome-banner__subtitle {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin-top: 4px;
+}
+
+/* ----- Quick entry cards ----- */
+.quick-entry-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-md);
+  padding: var(--space-md) var(--space-lg);
+}
+
+.quick-entry-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  min-height: 90px;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+  user-select: none;
+}
+
+.quick-entry-card:active {
+  transform: scale(0.95);
+}
+
+.quick-entry-card__emoji {
+  font-size: 32px;
+}
+
+.quick-entry-card__label {
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.quick-entry-card--blue {
+  background: var(--color-blue-bg);
+  color: var(--color-blue);
+}
+
+.quick-entry-card--orange {
+  background: var(--color-primary-bg);
+  color: var(--color-primary);
+}
+
+.quick-entry-card--pink {
+  background: var(--color-pink-bg);
+  color: var(--color-pink);
+}
+
+/* ----- Hero recipe card ----- */
+.hero-recipe {
+  position: relative;
+  margin: var(--space-md) var(--space-lg) var(--space-lg);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: var(--shadow-md);
+  transition: transform var(--transition-base);
+}
+
+.hero-recipe:hover {
+  transform: scale(1.015);
+}
+
+.hero-recipe:active {
+  transform: scale(0.98);
+}
+
+.hero-recipe__image {
+  width: 100%;
+  padding-top: 56.25%; /* 16:9 */
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-recipe__image img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero-recipe__overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: var(--space-2xl) var(--space-lg) var(--space-lg);
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.75) 0%,
+    rgba(0, 0, 0, 0.2) 60%,
+    transparent 100%
+  );
+  color: #fff;
+}
+
+.hero-recipe__tag {
+  display: inline-block;
+  padding: 2px 10px;
+  font-size: 10px;
+  font-weight: 600;
+  border-radius: var(--radius-full);
+  background: var(--color-primary);
+  margin-bottom: var(--space-sm);
+}
+
+.hero-recipe__title {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.hero-recipe__meta {
+  font-size: 12px;
+  opacity: 0.8;
+  margin-top: 4px;
+}
+
+/* ----- Horizontal scroll list ----- */
+.scroll-list {
+  padding-left: var(--space-lg);
+  margin-bottom: var(--space-xl);
+}
+
+.scroll-list__header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding-right: var(--space-lg);
+  margin-bottom: var(--space-md);
+}
+
+.scroll-list__title {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.scroll-list__more {
+  font-size: 13px;
+  color: var(--color-primary);
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.scroll-list__track {
+  display: flex;
+  gap: var(--space-md);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: var(--space-sm);
+  scrollbar-width: none;
+}
+
+.scroll-list__track::-webkit-scrollbar {
+  display: none;
+}
+
+.scroll-list__track .recipe-card {
+  flex-shrink: 0;
+  width: 160px;
+  scroll-snap-align: start;
+}
+
+.scroll-list__track .recipe-card .recipe-card__cover {
+  padding-top: 100%; /* square */
+}
+
+/* ==========================================================================
+   11. MODALS
+   ========================================================================== */
+
+/* ----- Overlay ----- */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--bg-overlay);
+  z-index: 2000;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  animation: fadeIn 200ms var(--ease-out);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
+
+.modal-overlay--closing {
+  animation: fadeOut 200ms var(--ease-out);
+}
+
+/* ----- Bottom sheet ----- */
+.modal-bottom-sheet {
+  width: 100%;
+  max-width: var(--max-width);
+  max-height: 85dvh;
+  background: var(--bg-card);
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+  padding: var(--space-lg) var(--space-lg) calc(var(--space-lg) + var(--bottom-safe));
+  overflow-y: auto;
+  animation: slideUp 350ms var(--ease-out-expo);
+  box-shadow: var(--shadow-xl);
+}
+
+@keyframes slideUp {
+  from { transform: translateY(100%); }
+  to   { transform: translateY(0); }
+}
+
+@keyframes slideDown {
+  from { transform: translateY(0); }
+  to   { transform: translateY(100%); }
+}
+
+.modal-bottom-sheet--closing {
+  animation: slideDown 250ms var(--ease-in-out);
+}
+
+.modal-bottom-sheet__handle {
+  width: 36px;
+  height: 4px;
+  background: #ddd;
+  border-radius: var(--radius-full);
+  margin: 0 auto var(--space-lg);
+}
+
+/* ----- Center dialog ----- */
+.modal-center-dialog {
+  width: calc(100% - var(--space-3xl) * 2);
+  max-width: 360px;
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  padding: var(--space-2xl);
+  text-align: center;
+  box-shadow: var(--shadow-xl);
+  animation: scaleIn 300ms var(--ease-out-expo);
+  align-self: center;
+}
+
+@keyframes scaleIn {
+  from { transform: scale(0.85); opacity: 0; }
+  to   { transform: scale(1);    opacity: 1; }
+}
+
+@keyframes scaleOut {
+  from { transform: scale(1);    opacity: 1; }
+  to   { transform: scale(0.85); opacity: 0; }
+}
+
+.modal-center-dialog--closing {
+  animation: scaleOut 200ms var(--ease-in-out);
+}
+
+.modal-center-dialog__title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: var(--space-sm);
+}
+
+.modal-center-dialog__body {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: var(--space-xl);
+}
+
+.modal-center-dialog__actions {
+  display: flex;
+  gap: var(--space-md);
+}
+
+.modal-center-dialog__actions .btn {
+  flex: 1;
+}
+
+/* ----- Timer modal ----- */
+.timer-modal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--space-3xl) var(--space-xl);
+}
+
+.timer-modal__display {
+  font-family: var(--font-mono);
+  font-size: 64px;
+  font-weight: 300;
+  color: var(--color-primary);
+  letter-spacing: 4px;
+  margin-bottom: var(--space-2xl);
+  font-variant-numeric: tabular-nums;
+}
+
+@media (min-width: 481px) {
+  .timer-modal__display {
+    font-size: 80px;
+  }
+}
+
+.timer-modal__label {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin-bottom: var(--space-2xl);
+}
+
+.timer-modal__controls {
+  display: flex;
+  gap: var(--space-lg);
+}
+
+.timer-modal__btn {
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 22px;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  box-shadow: var(--shadow-md);
+}
+
+.timer-modal__btn--play {
+  background: var(--color-primary);
+  color: #fff;
+  width: 68px;
+  height: 68px;
+  font-size: 26px;
+}
+
+.timer-modal__btn--stop {
+  background: var(--bg-surface);
+  color: var(--color-error);
+}
+
+.timer-modal__btn:active {
+  transform: scale(0.9);
+}
+
+/* ==========================================================================
+   12. TOAST
+   ========================================================================== */
+.toast {
+  position: fixed;
+  top: var(--space-xl);
+  left: 50%;
+  transform: translateX(-50%);
+  padding: var(--space-md) var(--space-xl);
+  background: var(--bg-toast);
+  color: var(--text-inverse);
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: var(--radius-full);
+  z-index: 3000;
+  pointer-events: none;
+  white-space: nowrap;
+  animation: toastIn 300ms var(--ease-out), toastOut 300ms var(--ease-out) 2.2s forwards;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+@keyframes toastIn {
+  from { opacity: 0; transform: translateX(-50%) translateY(-12px); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+@keyframes toastOut {
+  from { opacity: 1; transform: translateX(-50%) translateY(0); }
+  to   { opacity: 0; transform: translateX(-50%) translateY(-12px); }
+}
+
+.toast--success {
+  background: var(--color-success);
+}
+.toast--warning {
+  background: var(--color-warning);
+  color: #333;
+}
+.toast--error {
+  background: var(--color-error);
+}
+
+/* ==========================================================================
+   13. EMPTY STATE — already defined in profile section above (shared)
+   ========================================================================== */
+
+/* ==========================================================================
+   14. BUTTON
+   ========================================================================== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  min-height: var(--touch-target);
+  padding: 0 var(--space-xl);
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  white-space: nowrap;
+}
+
+.btn:active {
+  transform: scale(0.96);
+}
+
+.btn--primary {
+  background: var(--color-primary);
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(255, 107, 53, 0.3);
+}
+
+.btn--primary:hover {
+  background: var(--color-primary-dark);
+  box-shadow: 0 6px 18px rgba(255, 107, 53, 0.4);
+}
+
+.btn--outline {
+  background: transparent;
+  color: var(--color-primary);
+  border: 1.5px solid var(--color-primary-border);
+}
+
+.btn--outline:hover {
+  background: var(--color-primary-bg);
+}
+
+.btn--ghost {
+  background: transparent;
+  color: var(--text-secondary);
+}
+
+.btn--ghost:hover {
+  background: var(--bg-surface);
+}
+
+.btn--sm {
+  min-height: 34px;
+  padding: 0 var(--space-lg);
+  font-size: 12px;
+}
+
+.btn--lg {
+  min-height: var(--touch-target-lg);
+  padding: 0 var(--space-2xl);
+  font-size: 16px;
+}
+
+.btn--block {
+  width: 100%;
+}
+
+.btn:disabled,
+.btn--disabled {
+  opacity: 0.45;
+  pointer-events: none;
+  cursor: default;
+}
+
+/* ==========================================================================
+   15. TAG  /  BADGE
+   ========================================================================== */
+.tag,
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 2px 10px;
+  font-size: 11px;
+  font-weight: 500;
+  border-radius: var(--radius-full);
+  white-space: nowrap;
+  user-select: none;
+}
+
+.tag {
+  background: var(--bg-surface);
+  color: var(--text-secondary);
+}
+
+.tag--primary {
+  background: var(--color-primary-bg);
+  color: var(--color-primary);
+}
+
+.badge {
+  background: var(--color-primary);
+  color: #fff;
+  font-size: 10px;
+  padding: 1px 8px;
+}
+
+.badge--success { background: var(--color-success); }
+.badge--warning { background: var(--color-warning); color: #333; }
+.badge--error   { background: var(--color-error); }
+.badge--info    { background: var(--color-info); }
+
+.badge--dot {
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  border-radius: 50%;
+  min-width: 8px;
+}
+
+/* ==========================================================================
+   16. SERVING SELECTOR — already defined in detail page above
+   ========================================================================== */
+
+/* ==========================================================================
+   17. LOADING SPINNER
+   ========================================================================== */
+.loading-spinner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-3xl);
+}
+
+.loading-spinner::after {
+  content: '';
+  width: 32px;
+  height: 32px;
+  border: 3px solid var(--bg-surface);
+  border-top-color: var(--color-primary);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.loading-spinner--lg::after {
+  width: 48px;
+  height: 48px;
+  border-width: 4px;
+}
+
+.loading-spinner--sm::after {
+  width: 20px;
+  height: 20px;
+  border-width: 2px;
+}
+
+/* Inline spinner (inside buttons) */
+.loading-spinner--inline {
+  display: inline-flex;
+  padding: 0;
+}
+
+.loading-spinner--inline::after {
+  width: 16px;
+  height: 16px;
+  border-width: 2px;
+}
+
+/* ==========================================================================
+   18. RESPONSIVE BREAKPOINTS
+   ========================================================================== */
+
+/* ----- 481px: small landscape / large phone ----- */
+@media (min-width: 481px) {
+  .detail-page__title {
+    font-size: 26px;
+  }
+
+  .quick-entry-card {
+    min-height: 110px;
+  }
+
+  .hero-recipe {
+    margin: var(--space-lg) var(--space-xl);
+  }
+
+  .recipe-card__title {
+    font-size: 15px;
+  }
+
+  .scroll-list__track .recipe-card {
+    width: 180px;
+  }
+}
+
+/* ----- 768px: tablet ----- */
+@media (min-width: 768px) {
+  body {
+    font-size: 16px;
+  }
+
+  .welcome-banner {
+    padding: var(--space-3xl) var(--space-2xl) var(--space-xl);
+  }
+
+  .welcome-banner__title {
+    font-size: 28px;
+  }
+
+  .quick-entry-row {
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg);
+    padding: var(--space-lg) var(--space-2xl);
+  }
+
+  .quick-entry-card {
+    min-height: 120px;
+  }
+
+  .hero-recipe {
+    margin: var(--space-lg) var(--space-2xl);
+  }
+
+  .hero-recipe__title {
+    font-size: 24px;
+  }
+
+  .detail-page__hero {
+    padding-top: 50%;
+  }
+
+  .detail-page__header,
+  .detail-page__info-row,
+  .ingredient-list,
+  .step-list,
+  .tips-box {
+    margin-left: var(--space-2xl);
+    margin-right: var(--space-2xl);
+  }
+
+  .detail-page__back {
+    top: var(--space-xl);
+    left: var(--space-xl);
+  }
+
+  .profile__user-card,
+  .profile__stats,
+  .profile__tab-switcher {
+    margin-left: var(--space-2xl);
+    margin-right: var(--space-2xl);
+  }
+
+  .scroll-list {
+    padding-left: var(--space-2xl);
+  }
+
+  .scroll-list__header {
+    padding-right: var(--space-2xl);
+  }
+
+  .scroll-list__track .recipe-card {
+    width: 200px;
+  }
+}
+
+/* ----- 1024px: desktop ----- */
+@media (min-width: 1024px) {
+  .welcome-banner {
+    padding: 48px var(--space-3xl) var(--space-2xl);
+  }
+
+  .welcome-banner__title {
+    font-size: 32px;
+  }
+
+  .quick-entry-row {
+    padding: var(--space-xl) var(--space-3xl);
+    gap: var(--space-xl);
+  }
+
+  .quick-entry-card {
+    min-height: 130px;
+  }
+
+  .hero-recipe {
+    margin: var(--space-xl) var(--space-3xl);
+    border-radius: var(--radius-xl);
+  }
+
+  .hero-recipe__title {
+    font-size: 28px;
+  }
+
+  .hero-recipe__overlay {
+    padding: var(--space-3xl) var(--space-2xl) var(--space-xl);
+  }
+
+  .detail-page__hero {
+    padding-top: 40%;
+  }
+
+  .detail-page__header,
+  .detail-page__info-row,
+  .ingredient-list,
+  .step-list,
+  .tips-box {
+    margin-left: var(--space-3xl);
+    margin-right: var(--space-3xl);
+  }
+
+  .detail-page__back {
+    top: var(--space-2xl);
+    left: var(--space-2xl);
+  }
+
+  .detail-page__title {
+    font-size: 28px;
+  }
+
+  .profile__user-card,
+  .profile__stats,
+  .profile__tab-switcher {
+    margin-left: var(--space-3xl);
+    margin-right: var(--space-3xl);
+  }
+
+  .scroll-list {
+    padding-left: var(--space-3xl);
+  }
+
+  .scroll-list__header {
+    padding-right: var(--space-3xl);
+  }
+
+  .scroll-list__track .recipe-card {
+    width: 220px;
+  }
+
+  .fridge-page {
+    gap: var(--space-2xl);
+  }
+
+  .challenge-page {
+    padding: var(--space-2xl) var(--space-3xl);
+  }
+}
+
+/* ==========================================================================
+   Page-level layout (shared across all pages)
+   ========================================================================== */
+.page {
+  flex: 1;
+  padding-bottom: calc(var(--tab-bar-height) + var(--bottom-safe));
+}
+
+.page--no-tab {
+  padding-bottom: 0;
+}
+
+/* ==========================================================================
+   Touch-friendly helpers
+   ========================================================================== */
+@media (hover: none) and (pointer: coarse) {
+  .recipe-card:hover,
+  .hero-recipe:hover,
+  .btn:hover,
+  .category-tabs__pill:hover {
+    transform: none;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .recipe-card:active {
+    transform: scale(0.97);
+  }
+
+  .hero-recipe:active {
+    transform: scale(0.98);
+  }
+}
+
+/* ==========================================================================
+   Focus visible (accessibility)
+   ========================================================================== */
+:focus-visible {
+  outline: 3px solid var(--color-primary-light);
+  outline-offset: 2px;
+}
+
+button:focus:not(:focus-visible),
+a:focus:not(:focus-visible),
+input:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* ==========================================================================
+   Scrollbar styling
+   ========================================================================== */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.12);
+  border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.22);
+}

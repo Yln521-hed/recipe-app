@@ -1,0 +1,75 @@
+import type { Category, Taste, Cuisine, Difficulty } from '../types';
+
+// ===== 分类及图标 =====
+export const CATEGORIES: { value: Category; label: string; emoji: string }[] = [
+  { value: '面食', label: '面食', emoji: '🍜' },
+  { value: '甜点', label: '甜点', emoji: '🍰' },
+  { value: '菌菇干货', label: '菌菇干货', emoji: '🍄' },
+  { value: '豆制品', label: '豆制品', emoji: '🫘' },
+  { value: '猪肉', label: '猪肉', emoji: '🥩' },
+  { value: '牛羊肉', label: '牛羊肉', emoji: '🐂' },
+  { value: '水产海鲜', label: '水产海鲜', emoji: '🦐' },
+  { value: '汤品', label: '汤品', emoji: '🍲' },
+  { value: '凉菜', label: '凉菜', emoji: '🥗' },
+  { value: '热炒', label: '热炒', emoji: '🍳' },
+  { value: '蒸菜', label: '蒸菜', emoji: '🥟' },
+  { value: '炖焖红烧', label: '炖焖红烧', emoji: '🥘' },
+  { value: '煎炸', label: '煎炸', emoji: '🍤' },
+  { value: '汤羹', label: '汤羹', emoji: '🥣' },
+  { value: '主食小吃', label: '主食小吃', emoji: '🍚' },
+  { value: '农家菜', label: '农家菜', emoji: '🏡' },
+];
+
+// ===== 口味 =====
+export const TASTES: { value: Taste; label: string }[] = [
+  { value: '清淡', label: '清淡' },
+  { value: '酸辣', label: '酸辣' },
+  { value: '麻辣', label: '麻辣' },
+  { value: '酸甜', label: '酸甜' },
+  { value: '咸香', label: '咸香' },
+  { value: '蒜香', label: '蒜香' },
+  { value: '酱香', label: '酱香' },
+  { value: '鲜香', label: '鲜香' },
+];
+
+// ===== 菜系 =====
+export const CUISINES: { value: Cuisine; label: string }[] = [
+  { value: '川菜', label: '川菜' },
+  { value: '粤菜', label: '粤菜' },
+  { value: '鲁菜', label: '鲁菜' },
+  { value: '苏菜', label: '苏菜' },
+  { value: '湘菜', label: '湘菜' },
+  { value: '家常菜', label: '家常菜' },
+  { value: '创意菜', label: '创意菜' },
+  { value: '融合菜', label: '融合菜' },
+  { value: '农家菜', label: '农家菜' },
+];
+
+// ===== 难度 =====
+export const DIFFICULTIES: { value: Difficulty; label: string }[] = [
+  { value: '简单', label: '简单' },
+  { value: '中等', label: '中等' },
+  { value: '困难', label: '困难' },
+];
+
+// ===== localStorage 键名 =====
+export const STORAGE_KEYS = {
+  FAVORITES: 'recipe_favorites',
+  NOTES: 'recipe_notes',
+  DIET_RECORDS: 'recipe_diet_records',
+  TIMERS: 'recipe_timers',
+  CHALLENGE_PROGRESS: 'recipe_challenge_progress',
+  POINTS: 'recipe_points',
+  BADGES: 'recipe_badges',
+  STREAK: 'recipe_streak',
+  LAST_COOK_DATE: 'recipe_last_cook_date',
+  COVER_IMAGES: 'recipe_cover_images',
+} as const;
+
+// ===== 常见食材 =====
+export const COMMON_INGREDIENTS = [
+  '鸡蛋', '番茄', '土豆', '豆腐', '青菜', '白菜',
+  '猪肉', '鸡肉', '牛肉', '虾', '鱼', '葱', '姜',
+  '蒜', '辣椒', '胡萝卜', '洋葱', '青椒', '黄瓜',
+  '茄子', '豆角', '玉米', '蘑菇',
+];
