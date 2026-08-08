@@ -6,12 +6,12 @@ import './index.css'
 
 // 注册 Service Worker（离线支持）
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('/sw.js').catch(() => {});
+  navigator.serviceWorker.register('/recipe-app/sw.js').catch(() => {});
 }
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <BrowserRouter>
+    <BrowserRouter basename="/recipe-app">
       <App />
     </BrowserRouter>
   </React.StrictMode>,
